@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid black;
+      padding: 3px;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #E6E6E6;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div id="calendar"></div>
+
+  <script>
+    function createCalendar(elem, year, month) {
+      // ...your code that generates the calndar in elem...
+      month--;
+      let tb = document.createElement("table"), t_row = document.createElement("tr");
+      tb.append(t_row);
+      let arr = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
+      for(let i = 0; i < 7; i++){
+        let t_cell = document.createElement("th");
+        t_cell.textContent = arr[i];
+        t_row.append(t_cell);
+      }
+      let last = new Date(year, month + 1, 0);
+      let i = 1, fin = last.getDate(), mt = last.getMonth();
+      while(i <= fin){
+        t_row = document.createElement("tr");
+        tb.append(t_row); 
+        let rt = new Date(year, month, i);
+        let current_day = rt.getDay(), current_month = rt.getMonth();
+        for(let j = 1; j <= 7; j++){
+          let t_day = document.createElement("td");
+          t_row.append(t_day);
+         
+          if((current_day == j && current_month == mt) ||(current_day == 0 && j == 7 && current_month == mt))
+          {
+            t_day.textContent = `${i}`;
+            i++;
+            rt = new Date(year,month,i);
+            current_day = rt.getDay();
+            current_month = rt.getMonth();
+          }
+        }
+      }
+      elem.append(tb);
+        
+    }
+    for(let i = 1; i<= 12 ; i++)
+      createCalendar(calendar, 2012, i);
+  </script>
+
+</body>
+</html>
